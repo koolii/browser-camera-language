@@ -4,31 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inspect what language is selected</title>
-    <script lang="javascript" async>
-      document.onload = () => {
-        console.log("language: ", navigator.language);
-        console.log("languages: ", navigator.languages);
-
-        const button = document.getElementById("start");
-        button.onclick = async (event) => {
-          event.preventDefault();
-
-          if (!navigator) {
-            alert("this browser doesn't support camera access.");
-            return false;
-          }
-
-          const result = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true,
-          });
-
-          console.log(result, JSON.stringify(result));
-        };
-      };
-    </script>
   </head>
   <body>
-    <button id="start">Press</button>
+    <span>Check camera access built in API of Browsers</span><br /><button
+      id="start"
+    >
+      Press</button
+    ><br />
+    <b>Language: </b><span id="language"></span>&nbsp; <b>Languages: </b
+    ><span id="languages"></span>
   </body>
+  <script type="text/javascript">
+    console.log("language: ", navigator.language);
+    console.log("languages: ", navigator.languages);
+
+    document.getElementById("language").innerHTML = navigator.language;
+    document.getElementById("languages").innerHTML = navigator.languages;
+
+    const button = document.getElementById("start");
+    button.onclick = async (event) => {
+      event.preventDefault();
+
+      if (!navigator) {
+        alert("this browser doesn't support camera access.");
+        return false;
+      }
+
+      const result = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      console.log(result, JSON.stringify(result));
+    };
+  </script>
 </html>
